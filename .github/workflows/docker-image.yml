@@ -15,4 +15,16 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag todoacr01.azurecr.io/microtoui:$(date +%s)
+      run: docker build . --file Dockerfile --tag todoacr01.azurecr.io/microtoui:v1
+      
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: "todoacr01"
+        password: "6P6zCXUFVSqcWuKsCaF8ldsQbZMEjZ4eXwzlLzzI0TSdeilWkGC9JQQJ99CBAC5RqLJEqg7NAAACAZCR5Yms"
+        
+    - name: Build and push
+      uses: docker/build-push-action@v6
+      with:
+        push: true
+        tags: todoacr01.azurecr.io/microtoui:v1
