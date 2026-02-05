@@ -9,6 +9,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      ARM_USE_OIDC: true
+      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
     environment: secrets
     steps:
     - name: Azure login
@@ -17,9 +22,10 @@ jobs:
        client-id: ${{ secrets.AZURE_CLIENT_ID }}
        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-       
+    - name: Checkout repository
+      uses: actions/checkout@v6.0.2
+      
     - name: Build the Docker image
-      uses: actions/checkout@v4
       run: docker build . --file Dockerfile --tag todoacr01.azurecr.io/microtoui:v1
       
     - name: Login to Docker Hub
