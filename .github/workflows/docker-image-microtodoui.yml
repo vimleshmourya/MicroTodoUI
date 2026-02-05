@@ -11,17 +11,17 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ARM_USE_OIDC: true
-      ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-      ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-      ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      ARM_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
+      ARM_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+      ARM_SUBSCRIPTION_ID: ${{ vars.AZURE_SUBSCRIPTION_ID }}
     environment: secrets
     steps:
     - name: Azure login
       uses: azure/login@v2
       with:
-       client-id: ${{ secrets.AZURE_CLIENT_ID }}
-       tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-       subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+       client-id: ${{ vars.AZURE_CLIENT_ID }}
+       tenant-id: ${{ vars.AZURE_TENANT_ID }}
+       subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
     - name: Checkout repository
       uses: actions/checkout@v6.0.2
       
@@ -31,8 +31,8 @@ jobs:
     - name: Login to Docker Hub
       uses: docker/login-action@v3
       with:
-        username: "todoacr01"
-        password: "6P6zCXUFVSqcWuKsCaF8ldsQbZMEjZ4eXwzlLzzI0TSdeilWkGC9JQQJ99CBAC5RqLJEqg7NAAACAZCR5Yms"
+        username: ${{ vars.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
         
     - name: Build and push
       uses: docker/build-push-action@v6
