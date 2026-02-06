@@ -32,10 +32,7 @@ jobs:
       
     - name: Login to Acr
       run: az acr login --name todoacr01
-      with:
-        username: ${{ vars.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_TOKEN }}
-        
+      
     - name: Build and push
       uses: docker/build-push-action@v6
       with:
