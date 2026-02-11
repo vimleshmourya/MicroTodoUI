@@ -1,0 +1,18 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: microtodoui
+spec:
+  selector:
+    matchLabels:
+      app: microtodoui
+  template:
+    metadata:
+      labels:
+        app: microtodoui
+    spec:
+      containers:
+      - name: microtodoui
+        image: todoacr01.azurecr.io/microtoui:v1
+        ports:
+        - containerPort: 80
