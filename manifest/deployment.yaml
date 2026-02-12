@@ -13,6 +13,6 @@ spec:
     spec:
       containers:
       - name: microtodoui
-        image: todoacr01.azurecr.io/microtoui:v1
+        image: todoacr01.azurecr.io/microtoui:v2
         ports:
         - containerPort: 80
